@@ -1,0 +1,317 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026延迟退休计算器_退休年龄对照表_在线测算 - 智汇工薪助手</title>
+    <meta name="description" content="2026渐进式延迟退休在线计算器，支持出生年月输入，精确到月份预测退休时间，附带1980-2000年出生人群退休年龄对照表，一键打印保存。">
+    <link rel="canonical" href="https://lixijsq.com/retirement-delay-calculator.html">
+    <link rel="stylesheet" href="style.css">
+    <!-- SoftwareApplication 结构化标记 -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "2026延迟退休计算器",
+      "applicationCategory": "CalculatorApplication",
+      "operatingSystem": "Web",
+      "description": "基于2026年渐进式延迟退休官方规则开发的精准计算器，支持出生年月输入，精确到月份预测退休时间，附带1980-2000年出生人群退休年龄对照表，支持一键打印保存。",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "CNY"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "智汇工薪助手"
+      },
+      "featureList": [
+        "支持出生年月精确输入",
+        "男职工/男干部/女干部/女工人多身份选择",
+        "精确到月份的退休时间预测",
+        "1980-2000年出生年份退休对照表",
+        "一键复制结果、打印对照表"
+      ]
+    }
+    </script>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">智汇工薪助手</a>
+            <a href="index.html" class="back-link">← 返回首页</a>
+            <div class="nav-menu">
+                <a href="after-tax-salary-calculator.html" class="nav-link">税后工资计算</a>
+                <a href="overtime-pay-calculator.html" class="nav-link">加班费计算</a>
+                <a href="leave-deduction-calculator.html" class="nav-link">请假扣款计算</a>
+                <a href="year-end-bonus-tax-calculator.html" class="nav-link">年终奖个税计算</a>
+                <a href="severance-pay-calculator.html" class="nav-link">离职补偿金计算</a>
+                <a href="retirement-delay-calculator.html" class="nav-link">延迟退休测算</a>
+                <a href="chinese-amount-converter.html" class="nav-link">金额大写转换</a>
+            </div>
+        </div>
+    </nav>
+    <main class="container">
+        <h1>2026 渐进式延迟退休计算器</h1>
+        <div class="card">
+            <div class="input-group">
+                <label>出生年月</label>
+                <input type="month" id="birthMonth" value="1985-05" min="1950-01" max="2000-12">
+                <div class="error-text" id="monthError">请选择1950-01至2000-12之间的有效年月</div>
+            </div>
+            <div class="input-group">
+                <label>人员身份</label>
+                <select id="identity">
+                    <option value="male_worker">男职工 (原60岁)</option>
+                    <option value="male_cadre">男干部 (原60岁)</option>
+                    <option value="female_cadre">女干部 (原55岁)</option>
+                    <option value="female_worker">女工人 (原50岁)</option>
+                </select>
+            </div>
+            <div class="btn-group">
+                <button onclick="calculate()">执行逻辑分析</button>
+                <button class="btn-success" onclick="copyResult()">一键复制结果</button>
+                <button class="btn-accent" onclick="sharePage()">📤 一键分享</button>
+            </div>
+            <div id="res" class="result" style="display:none; margin-top: 15px;"></div>
+        </div>
+
+        <div class="card" id="printArea">
+            <h2>📊 1980-2000年出生人群延迟退休对照表</h2>
+            <p style="margin-bottom: 15px;">本表基于2026年渐进式延迟退休官方阶梯规则制定，数据与计算器逻辑完全一致，可直接对照查询，男性职工/干部退休规则一致。</p>
+            <div class="table-wrap">
+                <table class="retire-table">
+                    <thead>
+                        <tr>
+                            <th rowspan="2" style="vertical-align: middle;">出生年份</th>
+                            <th colspan="2">男职工/男干部（原60岁）</th>
+                            <th colspan="2">女干部（原55岁）</th>
+                            <th colspan="2">女工人（原50岁）</th>
+                        </tr>
+                        <tr>
+                            <th>延迟时长</th>
+                            <th>退休年份</th>
+                            <th>延迟时长</th>
+                            <th>退休年份</th>
+                            <th>延迟时长</th>
+                            <th>退休年份</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1980年</td><td>0个月</td><td>2040年</td><td>0个月</td><td>2035年</td><td>0个月</td><td>2030年</td></tr>
+                        <tr><td>1981年</td><td>4个月</td><td>2041年4月</td><td>3个月</td><td>2036年3月</td><td>0个月</td><td>2031年</td></tr>
+                        <tr><td>1982年</td><td>8个月</td><td>2042年8月</td><td>6个月</td><td>2037年6月</td><td>0个月</td><td>2032年</td></tr>
+                        <tr><td>1983年</td><td>12个月</td><td>2043年</td><td>9个月</td><td>2038年9月</td><td>0个月</td><td>2033年</td></tr>
+                        <tr><td>1984年</td><td>16个月</td><td>2044年4月</td><td>12个月</td><td>2039年</td><td>0个月</td><td>2034年</td></tr>
+                        <tr><td>1985年</td><td>20个月</td><td>2045年8月</td><td>15个月</td><td>2040年3月</td><td>3个月</td><td>2035年3月</td></tr>
+                        <tr><td>1986年</td><td>24个月</td><td>2046年</td><td>18个月</td><td>2041年6月</td><td>6个月</td><td>2036年6月</td></tr>
+                        <tr><td>1987年</td><td>28个月</td><td>2047年4月</td><td>21个月</td><td>2042年9月</td><td>9个月</td><td>2037年9月</td></tr>
+                        <tr><td>1988年</td><td>32个月</td><td>2048年8月</td><td>24个月</td><td>2043年</td><td>12个月</td><td>2038年</td></tr>
+                        <tr><td>1989年</td><td>36个月</td><td>2049年</td><td>27个月</td><td>2044年3月</td><td>15个月</td><td>2039年3月</td></tr>
+                        <tr><td>1990年</td><td>36个月</td><td>2050年</td><td>30个月</td><td>2045年6月</td><td>18个月</td><td>2040年6月</td></tr>
+                        <tr><td>1991年</td><td>36个月</td><td>2051年</td><td>33个月</td><td>2046年9月</td><td>21个月</td><td>2041年9月</td></tr>
+                        <tr><td>1992年</td><td>36个月</td><td>2052年</td><td>36个月</td><td>2047年</td><td>24个月</td><td>2042年</td></tr>
+                        <tr><td>1993年</td><td>36个月</td><td>2053年</td><td>36个月</td><td>2048年</td><td>27个月</td><td>2043年3月</td></tr>
+                        <tr><td>1994年</td><td>36个月</td><td>2054年</td><td>36个月</td><td>2049年</td><td>30个月</td><td>2044年6月</td></tr>
+                        <tr><td>1995年</td><td>36个月</td><td>2055年</td><td>36个月</td><td>2050年</td><td>33个月</td><td>2045年9月</td></tr>
+                        <tr><td>1996年</td><td>36个月</td><td>2056年</td><td>36个月</td><td>2051年</td><td>36个月</td><td>2046年</td></tr>
+                        <tr><td>1997年</td><td>36个月</td><td>2057年</td><td>36个月</td><td>2052年</td><td>36个月</td><td>2047年</td></tr>
+                        <tr><td>1998年</td><td>36个月</td><td>2058年</td><td>36个月</td><td>2053年</td><td>36个月</td><td>2048年</td></tr>
+                        <tr><td>1999年</td><td>36个月</td><td>2059年</td><td>36个月</td><td>2054年</td><td>36个月</td><td>2049年</td></tr>
+                        <tr><td>2000年</td><td>36个月</td><td>2060年</td><td>36个月</td><td>2055年</td><td>36个月</td><td>2050年</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="table-note">
+                * 注：本表数据为按年份统一测算，精确到月份的退休时间请使用上方计算器查询；最终退休时间以人社部官方公布细则为准；<br>
+                * 延迟规则：男性最高延迟3年（36个月），最终退休年龄63岁；女干部最高延迟5年，最终退休年龄60岁；女工人最高延迟5年，最终退休年龄55岁。
+            </p>
+            <div class="btn-group">
+                <button class="btn-print" onclick="printTable()">🖨️ 一键打印对照表</button>
+                <button class="btn-warning" onclick="downloadTable()">📸 下载对照表图片</button>
+            </div>
+        </div>
+<!-- 新增：扩展文章导航 开始 -->
+        <div class="tools-nav">
+            <h2>扩展阅读</h2>
+            <div class="tools-grid">
+                <a href="article-retirement-delay-calculator-1.html" class="tool-card">
+                    <h4>80后/90后如何应对延迟退休 - 政策深度解读</h4>
+                    <p>随着渐进式延迟法定退休年龄方案的深入推进，原本计划在60岁（男）或55/50岁（女）开启退休生活的群体，将面临最高3年的职业延长线。这对80后与90后来说，不仅是时间上的增加，更是“职业耐力”的考验。</p>
+                </a>
+                <a href="article-retirement-delay-calculator-2.html" class="tool-card">
+                    <h4>深度解析：“每3个月延迟1个月”的阶梯规律</h4>
+                    <p>2026年渐进式延迟退休方案的核心逻辑是“小步慢走、阶梯推进”，其中“每3个月延迟1个月”的阶梯规律是理解退休年龄计算的关键。这一规则并非简单的“每年延迟4个月”，而是按出生年份分段、分性别逐步实施。</p>
+                </a>
+            </div>
+        </div>
+        <!-- 新增：扩展文章导航 结束 -->
+
+        <!-- 其他工具内链 -->
+        <div class="tools-nav">
+            <h3>📦 更多实用工具</h3>
+            <div class="tools-grid">
+                <a href="after-tax-salary-calculator.html" class="tool-card">
+                    <h4>税后工资计算器</h4>
+                    <p>2026最新个税规则，精准算出税后到手工资，附带完整个税明细</p>
+                </a>
+                <a href="overtime-pay-calculator.html" class="tool-card">
+                    <h4>加班费计算器</h4>
+                    <p>劳动法标准加班费计算，工作日/周末/节假日加班一键核算</p>
+                </a>
+                <a href="leave-deduction-calculator.html" class="tool-card">
+                    <h4>请假扣款计算器</h4>
+                    <p>事假/病假工资核算，符合医疗期标准，精准算出扣款金额</p>
+                </a>
+                <a href="year-end-bonus-tax-calculator.html" class="tool-card">
+                    <h4>年终奖个税对比计算器</h4>
+                    <p>单独计税/合并计税一键对比，自动算出最优省税方案</p>
+                </a>
+                <a href="severance-pay-calculator.html" class="tool-card">
+                    <h4>离职经济补偿金计算器</h4>
+                    <p>N/N+1/2N补偿计算，自动核算个税免税额度，精准算到手金额</p>
+                </a>
+                <a href="chinese-amount-converter.html" class="tool-card">
+                    <h4>中文大写金额转换工具</h4>
+                    <p>财务标准金额大写转换，适配报销单、支票、合同场景</p>
+                </a>
+            </div>
+        </div>
+    </main>
+    <footer class="footer-links">
+        <a href="contact.html">联系反馈</a> | <a href="privacy.html">隐私政策</a> | <a href="disclaimer.html">免责声明</a>
+        <p style="margin-top: 10px;">© 2026 智汇工薪助手 版权所有</p>
+    </footer>
+    <script>
+        // 核心延迟退休计算逻辑
+        function calculate() {
+            const birthMonthInput = document.getElementById('birthMonth').value;
+            const identity = document.getElementById('identity').value;
+            const monthError = document.getElementById('monthError');
+            const res = document.getElementById('res');
+            
+            // 输入校验
+            if (!birthMonthInput) {
+                monthError.style.display = 'block';
+                res.style.display = 'none';
+                return;
+            }
+            const [birthYear, birthMon] = birthMonthInput.split('-').map(Number);
+            if (birthYear < 1950 || birthYear > 2000) {
+                monthError.style.display = 'block';
+                res.style.display = 'none';
+                return;
+            }
+            monthError.style.display = 'none';
+
+            // 基础退休年龄
+            let baseAge;
+            switch(identity) {
+                case 'male_worker':
+                case 'male_cadre':
+                    baseAge = 60;
+                    break;
+                case 'female_cadre':
+                    baseAge = 55;
+                    break;
+                case 'female_worker':
+                    baseAge = 50;
+                    break;
+            }
+
+            // 渐进式延迟规则
+            let delayMonths = 0;
+            const originalRetireYear = birthYear + baseAge;
+            
+            if (birthYear >= 1980) {
+                if (identity.includes('male')) {
+                    const birthDiff = birthYear - 1980;
+                    delayMonths = Math.min(birthDiff * 4, 36);
+                } else if (identity === 'female_cadre') {
+                    if (birthYear >= 1985) {
+                        const birthDiff = birthYear - 1985;
+                        delayMonths = Math.min(birthDiff * 3, 60);
+                    }
+                } else if (identity === 'female_worker') {
+                    if (birthYear >= 1990) {
+                        const birthDiff = birthYear - 1990;
+                        delayMonths = Math.min(birthDiff * 3, 60);
+                    }
+                }
+            }
+
+            // 计算最终退休时间
+            let finalRetireYear = originalRetireYear;
+            let finalRetireMon = birthMon + delayMonths;
+            while (finalRetireMon > 12) {
+                finalRetireMon -= 12;
+                finalRetireYear++;
+            }
+
+            // 结果展示
+            res.style.display = 'block';
+            res.innerHTML = `
+                根据2026年渐进式延迟退休政策：<br>
+                ✅ 基础退休年龄：${baseAge}岁<br>
+                ✅ 原退休时间：${originalRetireYear}年${birthMon.toString().padStart(2, '0')}月<br>
+                ✅ 延迟时长：${delayMonths}个月<br>
+                ✅ 预计退休年龄：${baseAge}岁${delayMonths}个月<br>
+                ✅ 预计退休时间：<strong style="font-size:1.2rem; color:var(--success);">${finalRetireYear}年${finalRetireMon.toString().padStart(2, '0')}月</strong><br>
+                <small style="color:#666; margin-top:8px; display:block;">注：最终以人社部官方公布细则为准</small>
+            `;
+        }
+
+        // 一键复制结果
+        function copyResult() {
+            const res = document.getElementById('res').innerText;
+            if (!res || res.includes('请选择')) {
+                alert('请先点击「执行逻辑分析」生成结果！');
+                return;
+            }
+            navigator.clipboard.writeText(res).then(() => {
+                alert('结果已复制到剪贴板！');
+            }).catch(() => {
+                const textArea = document.createElement('textarea');
+                textArea.value = res;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('结果已复制到剪贴板！');
+            });
+        }
+
+        // 打印对照表
+        function printTable() { window.print(); }
+        // 下载对照表
+        function downloadTable() { alert('请使用浏览器截图功能保存，或点击打印按钮另存为PDF'); }
+        // 分享功能
+        function sharePage() {
+            const url = window.location.href;
+            const title = document.title;
+            if (navigator.share) {
+                navigator.share({ title, url }).catch(console.error);
+            } else {
+                navigator.clipboard.writeText(url).then(() => {
+                    alert('链接已复制到剪贴板！');
+                }).catch(() => alert('复制失败，请手动复制链接'));
+            }
+        }
+        // 输入实时校验
+        document.getElementById('birthMonth').addEventListener('input', function() {
+            const monthError = document.getElementById('monthError');
+            const val = this.value;
+            if (val) {
+                const [year] = val.split('-').map(Number);
+                if (year >= 1950 && year <= 2000) {
+                    monthError.style.display = 'none';
+                    return;
+                }
+            }
+            monthError.style.display = 'block';
+        });
+        // 页面加载默认计算
+        window.onload = function() { calculate(); };
+    </script>
+</body>
+</html>

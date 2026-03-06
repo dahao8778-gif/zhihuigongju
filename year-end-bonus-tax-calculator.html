@@ -1,0 +1,372 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026年终奖个税对比计算器_单独计税合并计税最优方案 - 智汇工薪助手</title>
+    <meta name="description" content="2026最新年终奖个税计算器，支持单独计税与合并计税一键对比，自动算出最优省税方案，符合全年一次性奖金个税优惠政策，精准测算到手金额。">
+    <link rel="canonical" href="https://lixijsq.com/year-end-bonus-tax-calculator.html">
+    <link rel="stylesheet" href="style.css">
+    <!-- SoftwareApplication 结构化标记 -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "2026年终奖个税对比计算器",
+      "applicationCategory": "CalculatorApplication",
+      "operatingSystem": "Web",
+      "description": "2026最新年终奖个税计算器，支持单独计税与合并计税一键对比，自动算出最优省税方案，符合全年一次性奖金个税优惠政策，精准测算个税金额及税后到手金额。",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "CNY"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "智汇工薪助手"
+      },
+      "featureList": [
+        "支持年终奖单独计税与合并计税一键对比",
+        "自动计算最优省税方案",
+        "支持月薪、五险一金、专项附加扣除完整参数",
+        "个税明细清晰展示",
+        "一键复制计算结果、打印明细单"
+      ]
+    }
+    </script>
+    <!-- HowTo 结构化标记 -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "年终奖个税对比计算使用教程",
+      "description": "教你如何使用年终奖个税对比计算器，找到最优省税方案，精准算出年终奖税后到手金额",
+      "totalTime": "PT1M",
+      "steps": [
+        {
+          "@type": "HowToStep",
+          "name": "输入税前月工资金额",
+          "text": "在对应输入框中填写你的税前月基本工资，包含固定薪资、绩效等固定收入",
+          "url": "#step1"
+        },
+        {
+          "@type": "HowToStep",
+          "name": "填写全年一次性年终奖金额",
+          "text": "输入你当年发放的全年一次性年终奖总金额",
+          "url": "#step2"
+        },
+        {
+          "@type": "HowToStep",
+          "name": "填写五险一金及专项附加扣除",
+          "text": "输入每月个人承担的五险一金金额，以及可享受的专项附加扣除总额",
+          "url": "#step3"
+        },
+        {
+          "@type": "HowToStep",
+          "name": "点击计算最优方案按钮",
+          "text": "点击「计算最优方案」按钮，系统将自动分别计算单独计税和合并计税两种方式的个税",
+          "url": "#step4"
+        },
+        {
+          "@type": "HowToStep",
+          "name": "查看对比结果",
+          "text": "查看两种计税方式的个税对比，系统自动标注最优省税方案及可省税金额，可一键复制或打印结果",
+          "url": "#step5"
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">智汇工薪助手</a>
+            <a href="index.html" class="back-link">← 返回首页</a>
+            <div class="nav-menu">
+                <a href="after-tax-salary-calculator.html" class="nav-link">税后工资计算</a>
+                <a href="overtime-pay-calculator.html" class="nav-link">加班费计算</a>
+                <a href="leave-deduction-calculator.html" class="nav-link">请假扣款计算</a>
+                <a href="year-end-bonus-tax-calculator.html" class="nav-link">年终奖个税计算</a>
+                <a href="severance-pay-calculator.html" class="nav-link">离职补偿金计算</a>
+                <a href="retirement-delay-calculator.html" class="nav-link">延迟退休测算</a>
+                <a href="chinese-amount-converter.html" class="nav-link">金额大写转换</a>
+            </div>
+        </div>
+    </nav>
+    <main class="container">
+        <h1>2026年终奖个税对比计算器</h1>
+        <div class="card">
+            <div class="input-row" id="step1">
+                <div class="input-group">
+                    <label>税前月工资（元）</label>
+                    <input type="number" id="monthSalary" value="12000" min="0" placeholder="例如：12000">
+                </div>
+                <div class="input-group" id="step2">
+                    <label>全年一次性年终奖（元）</label>
+                    <input type="number" id="yearBonus" value="36000" min="0" placeholder="例如：36000">
+                </div>
+            </div>
+            <div class="input-row" id="step3">
+                <div class="input-group">
+                    <label>五险一金个人缴纳（元/月）</label>
+                    <input type="number" id="monthInsurance" value="2000" min="0" placeholder="例如：2000">
+                </div>
+                <div class="input-group">
+                    <label>专项附加扣除总额（元/月）</label>
+                    <input type="number" id="monthDeduction" value="3000" min="0" placeholder="例如：3000">
+                </div>
+            </div>
+            <div class="btn-group" id="step4">
+                <button onclick="calcBonus()">计算最优方案</button>
+                <button class="btn-success" onclick="copyResult()">一键复制结果</button>
+                <button class="btn-accent" onclick="sharePage()">📤 一键分享</button>
+            </div>
+            <div id="res" class="result" style="display:none; margin-top: 15px;" id="step5"></div>
+        </div>
+
+        <div class="card" id="printArea">
+            <h2>📋 年终奖个税对比明细单</h2>
+            <div class="compare-box">
+                <div class="compare-item" id="singleTaxBox">
+                    <div class="compare-title">单独计税 <span id="singleTag"></span></div>
+                    <div class="compare-detail" id="singleDetail">
+                        <p><span>年终奖个税：</span><strong>-</strong></p>
+                        <p><span>全年工资个税：</span><strong>-</strong></p>
+                        <p><span>全年个税合计：</span><strong>-</strong></p>
+                    </div>
+                </div>
+                <div class="compare-item" id="mergeTaxBox">
+                    <div class="compare-title">合并计税 <span id="mergeTag"></span></div>
+                    <div class="compare-detail" id="mergeDetail">
+                        <p><span>全年收入总额：</span><strong>-</strong></p>
+                        <p><span>全年应纳税所得额：</span><strong>-</strong></p>
+                        <p><span>全年个税合计：</span><strong>-</strong></p>
+                    </div>
+                </div>
+            </div>
+            <div class="result" id="finalResult" style="text-align: center; font-size: 1.1rem; margin-top: 15px;">
+                请先点击「计算最优方案」查看结果
+            </div>
+            <div class="tax-note">
+                <strong>📌 政策说明：</strong>全年一次性奖金单独计税优惠政策，已官方延续至2027年12月31日；本计算器采用最新综合所得年度税率表计算，结果仅供参考，最终个税金额以税务系统核算为准。
+            </div>
+            <div class="btn-group">
+                <button class="btn-print" onclick="printDetail()">🖨️ 打印明细单</button>
+                <button class="btn-warning" onclick="downloadDetail()">📸 下载明细单图片</button>
+            </div>
+        </div>
+<div class="card" style="border: 1px solid #ffe3e3; background: #fffafb;">
+    <h3 style="color: #e03131;">🔥 必看攻略</h3>
+    <p>年终奖发了要交多少税？选错计税方式可能损失上千元！</p>
+    <a href="article-year-end-bonus-avoidance.html" style="color: var(--primary); font-weight: bold;">查看：2026年终奖计税避坑指南 →</a>
+</div>
+        <!-- 其他工具内链 -->
+        <div class="tools-nav">
+            <h3>📦 更多实用工具</h3>
+            <div class="tools-grid">
+                <a href="after-tax-salary-calculator.html" class="tool-card">
+                    <h4>税后工资计算器</h4>
+                    <p>2026最新个税规则，精准算出税后到手工资，附带完整个税明细</p>
+                </a>
+                <a href="overtime-pay-calculator.html" class="tool-card">
+                    <h4>加班费计算器</h4>
+                    <p>劳动法标准加班费计算，工作日/周末/节假日加班一键核算</p>
+                </a>
+                <a href="leave-deduction-calculator.html" class="tool-card">
+                    <h4>请假扣款计算器</h4>
+                    <p>事假/病假工资核算，符合医疗期标准，精准算出扣款金额</p>
+                </a>
+                <a href="severance-pay-calculator.html" class="tool-card">
+                    <h4>离职经济补偿金计算器</h4>
+                    <p>N/N+1/2N补偿计算，自动核算个税免税额度，精准算到手金额</p>
+                </a>
+                <a href="retirement-delay-calculator.html" class="tool-card">
+                    <h4>延迟退休计算器</h4>
+                    <p>2026渐进式延迟退休政策测算，精确到月预测退休时间</p>
+                </a>
+                <a href="chinese-amount-converter.html" class="tool-card">
+                    <h4>中文大写金额转换工具</h4>
+                    <p>财务标准金额大写转换，适配报销单、支票、合同场景</p>
+                </a>
+            </div>
+        </div>
+    </main>
+    <footer class="footer-links">
+        <a href="contact.html">联系反馈</a> | <a href="privacy.html">隐私政策</a> | <a href="disclaimer.html">免责声明</a>
+        <p style="margin-top: 10px;">© 2026 智汇工薪助手 版权所有</p>
+    </footer>
+    <script>
+        // 综合所得年度个税税率表
+        const annualTaxRateTable = [
+            { min: 0, max: 36000, rate: 0.03, quickDeduction: 0 },
+            { min: 36000, max: 144000, rate: 0.1, quickDeduction: 2520 },
+            { min: 144000, max: 300000, rate: 0.2, quickDeduction: 16920 },
+            { min: 300000, max: 420000, rate: 0.25, quickDeduction: 31920 },
+            { min: 420000, max: 660000, rate: 0.3, quickDeduction: 52920 },
+            { min: 660000, max: 960000, rate: 0.35, quickDeduction: 85920 },
+            { min: 960000, max: Infinity, rate: 0.45, quickDeduction: 181920 }
+        ];
+
+        // 年终奖单独计税月度税率表
+        const monthlyTaxRateTable = [
+            { min: 0, max: 3000, rate: 0.03, quickDeduction: 0 },
+            { min: 3000, max: 12000, rate: 0.1, quickDeduction: 210 },
+            { min: 12000, max: 25000, rate: 0.2, quickDeduction: 1410 },
+            { min: 25000, max: 35000, rate: 0.25, quickDeduction: 2660 },
+            { min: 35000, max: 55000, rate: 0.3, quickDeduction: 4410 },
+            { min: 55000, max: 80000, rate: 0.35, quickDeduction: 7160 },
+            { min: 80000, max: Infinity, rate: 0.45, quickDeduction: 15160 }
+        ];
+
+        // 计算个税核心函数
+        function calcTax(income, rateTable) {
+            for (let i = 0; i < rateTable.length; i++) {
+                const item = rateTable[i];
+                if (income > item.min && income <= item.max) {
+                    return income * item.rate - item.quickDeduction;
+                }
+            }
+            return 0;
+        }
+
+        // 核心年终奖计算逻辑
+        function calcBonus() {
+            const monthSalary = parseFloat(document.getElementById('monthSalary').value) || 0;
+            const yearBonus = parseFloat(document.getElementById('yearBonus').value) || 0;
+            const monthInsurance = parseFloat(document.getElementById('monthInsurance').value) || 0;
+            const monthDeduction = parseFloat(document.getElementById('monthDeduction').value) || 0;
+            const res = document.getElementById('res');
+
+            // 固定参数
+            const annualThreshold = 5000 * 12;
+            const annualSalary = monthSalary * 12;
+            const annualInsurance = monthInsurance * 12;
+            const annualDeduction = monthDeduction * 12;
+
+            // 1. 单独计税计算
+            const bonusMonthly = yearBonus / 12;
+            const bonusTax = calcTax(bonusMonthly, monthlyTaxRateTable) * 12;
+            const salaryTaxable = annualSalary - annualThreshold - annualInsurance - annualDeduction;
+            const salaryTax = salaryTaxable > 0 ? calcTax(salaryTaxable, annualTaxRateTable) : 0;
+            const singleTotalTax = bonusTax + salaryTax;
+
+            // 2. 合并计税计算
+            const totalAnnualIncome = annualSalary + yearBonus;
+            const mergeTaxable = totalAnnualIncome - annualThreshold - annualInsurance - annualDeduction;
+            const mergeTotalTax = mergeTaxable > 0 ? calcTax(mergeTaxable, annualTaxRateTable) : 0;
+
+            // 3. 对比最优方案
+            let bestPlan, worsePlan, saveTax;
+            if (singleTotalTax < mergeTotalTax) {
+                bestPlan = '单独计税';
+                worsePlan = '合并计税';
+                saveTax = mergeTotalTax - singleTotalTax;
+            } else if (mergeTotalTax < singleTotalTax) {
+                bestPlan = '合并计税';
+                worsePlan = '单独计税';
+                saveTax = singleTotalTax - mergeTotalTax;
+            } else {
+                bestPlan = '两种方案一致';
+                worsePlan = '';
+                saveTax = 0;
+            }
+
+            // 结果展示
+            res.style.display = 'block';
+            res.innerHTML = `
+                📌 年终奖单独计税个税：￥${bonusTax.toFixed(2)}<br>
+                📌 年终奖合并计税个税差额：￥${(mergeTotalTax - salaryTax).toFixed(2)}<br>
+                📌 全年个税差额：￥${Math.abs(singleTotalTax - mergeTotalTax).toFixed(2)}<br>
+                📌 最优方案：<strong style="color:var(--success);font-size:1.2rem;">${bestPlan}</strong><br>
+                ${saveTax > 0 ? `📌 最多可省个税：<strong style="color:var(--success);">￥${saveTax.toFixed(2)}</strong>` : ''}
+            `;
+
+            // 同步到对比明细
+            document.getElementById('singleDetail').innerHTML = `
+                <p><span>年终奖个税：</span><strong>￥${bonusTax.toFixed(2)}</strong></p>
+                <p><span>全年工资个税：</span><strong>￥${salaryTax.toFixed(2)}</strong></p>
+                <p><span>全年个税合计：</span><strong>￥${singleTotalTax.toFixed(2)}</strong></p>
+            `;
+            document.getElementById('mergeDetail').innerHTML = `
+                <p><span>全年收入总额：</span><strong>￥${totalAnnualIncome.toFixed(2)}</strong></p>
+                <p><span>全年应纳税所得额：</span><strong>￥${Math.max(mergeTaxable, 0).toFixed(2)}</strong></p>
+                <p><span>全年个税合计：</span><strong>￥${mergeTotalTax.toFixed(2)}</strong></p>
+            `;
+
+            // 标记最优方案
+            const singleBox = document.getElementById('singleTaxBox');
+            const mergeBox = document.getElementById('mergeTaxBox');
+            const singleTag = document.getElementById('singleTag');
+            const mergeTag = document.getElementById('mergeTag');
+            const finalResult = document.getElementById('finalResult');
+
+            // 重置样式
+            singleBox.classList.remove('best', 'worse');
+            mergeBox.classList.remove('best', 'worse');
+            singleTag.innerHTML = '';
+            mergeTag.innerHTML = '';
+
+            if (bestPlan === '单独计税') {
+                singleBox.classList.add('best');
+                mergeBox.classList.add('worse');
+                singleTag.innerHTML = '<span class="best-tag">最优方案</span>';
+                mergeTag.innerHTML = '<span class="worse-tag">多交税</span>';
+                finalResult.innerHTML = `最优方案：<strong style="color:var(--success);">单独计税</strong>，可省个税 <strong style="color:var(--success);">￥${saveTax.toFixed(2)}</strong>`;
+            } else if (bestPlan === '合并计税') {
+                mergeBox.classList.add('best');
+                singleBox.classList.add('worse');
+                mergeTag.innerHTML = '<span class="best-tag">最优方案</span>';
+                singleTag.innerHTML = '<span class="worse-tag">多交税</span>';
+                finalResult.innerHTML = `最优方案：<strong style="color:var(--success);">合并计税</strong>，可省个税 <strong style="color:var(--success);">￥${saveTax.toFixed(2)}</strong>`;
+            } else {
+                finalResult.innerHTML = `两种计税方案个税一致，无差额`;
+            }
+        }
+
+        // 一键复制结果
+        function copyResult() {
+            const finalResult = document.getElementById('finalResult').innerText;
+            if (finalResult.includes('请先点击')) {
+                alert('请先点击「计算最优方案」生成结果！');
+                return;
+            }
+            const copyText = `
+年终奖个税对比明细
+单独计税全年个税合计：${document.getElementById('singleDetail').querySelectorAll('strong')[2].innerText}
+合并计税全年个税合计：${document.getElementById('mergeDetail').querySelectorAll('strong')[2].innerText}
+${finalResult}
+            `.trim();
+            navigator.clipboard.writeText(copyText).then(() => {
+                alert('结果已复制到剪贴板！');
+            }).catch(() => {
+                const textArea = document.createElement('textarea');
+                textArea.value = copyText;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('结果已复制到剪贴板！');
+            });
+        }
+
+        // 打印明细
+        function printDetail() { window.print(); }
+        // 下载明细
+        function downloadDetail() { alert('请使用浏览器截图功能保存，或点击打印按钮另存为PDF'); }
+        // 分享功能
+        function sharePage() {
+            const url = window.location.href;
+            const title = document.title;
+            if (navigator.share) {
+                navigator.share({ title, url }).catch(console.error);
+            } else {
+                navigator.clipboard.writeText(url).then(() => {
+                    alert('链接已复制到剪贴板！');
+                }).catch(() => alert('复制失败，请手动复制链接'));
+            }
+        }
+        // 页面加载默认计算
+        window.onload = function() { calcBonus(); };
+    </script>
+</body>
+</html>

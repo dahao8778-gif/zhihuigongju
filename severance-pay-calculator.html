@@ -1,0 +1,541 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>离职经济补偿金计算器_N+1赔偿金额_个税免税额度计算 - 智汇工薪助手</title>
+    <meta name="description" content="2026最新离职经济补偿金计算器，支持入职日期自动算工作年限，热门城市社平工资一键选择，N/N+1/2N赔偿金额一键计算，符合劳动合同法规定。">
+    <link rel="canonical" href="https://lixijsq.com/severance-pay-calculator.html">
+    <link rel="stylesheet" href="style.css">
+    <!-- SoftwareApplication 结构化标记 -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "离职经济补偿金计算器",
+      "applicationCategory": "CalculatorApplication",
+      "operatingSystem": "Web",
+      "description": "严格遵循《劳动合同法》开发的离职经济补偿金计算器，支持N/N+1/2N三种补偿类型，入职日期自动计算法定工作年限，热门城市社平工资一键选择，自动核算个税免税额度，精准测算税前税后补偿金额。",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "CNY"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "智汇工薪助手"
+      },
+      "featureList": [
+        "支持入职日期手动输入/点选双模式，自动计算法定工作年限",
+        "支持N/N+1/2N三种补偿类型一键计算",
+        "热门城市上年社平工资一键选择",
+        "3倍社平工资封顶自动适配",
+        "补偿金个税免税额度自动核算",
+        "税后到手金额精准测算",
+        "一键复制明细、打印赔偿单"
+      ]
+    }
+    </script>
+    <!-- HowTo 结构化标记 -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "离职经济补偿金计算使用教程",
+      "description": "教你如何使用离职经济补偿金计算器，精准算出N/N+1/2N赔偿金额及税后到手金额",
+      "totalTime": "PT1M",
+      "steps": [
+        {
+          "@type": "HowToStep",
+          "name": "输入离职前12个月平均月工资",
+          "text": "在对应输入框中填写你离职前12个月的平均税前月工资，包含基本工资、奖金、提成、补贴等所有固定收入",
+          "url": "#step1"
+        },
+        {
+          "@type": "HowToStep",
+          "name": "填写入职日期或工作年限",
+          "text": "输入你的入职日期，系统将自动计算截止到当前的法定工作年限，也可以手动填写折算后的工作年限",
+          "url": "#step2"
+        },
+        {
+          "@type": "HowToStep",
+          "name": "选择补偿类型",
+          "text": "根据你的离职情况，选择对应的补偿类型：N（经济补偿）、N+1（无过失性辞退未提前通知）、2N（违法解除劳动合同赔偿金）",
+          "url": "#step3"
+        },
+        {
+          "@type": "HowToStep",
+          "name": "选择所在城市或填写社平工资",
+          "text": "选择你所在的城市，系统将自动填充当地上年职工年平均工资，也可以手动自定义输入",
+          "url": "#step4"
+        },
+        {
+          "@type": "HowToStep",
+          "name": "点击计算赔偿金额",
+          "text": "点击「计算赔偿金额」按钮，系统将自动按照劳动合同法规定，计算税前补偿总额、个税免税额度、应缴个税及税后到手金额",
+          "url": "#step5"
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">智汇工薪助手</a>
+            <a href="index.html" class="back-link">← 返回首页</a>
+            <div class="nav-menu">
+                <a href="after-tax-salary-calculator.html" class="nav-link">税后工资计算</a>
+                <a href="overtime-pay-calculator.html" class="nav-link">加班费计算</a>
+                <a href="leave-deduction-calculator.html" class="nav-link">请假扣款计算</a>
+                <a href="year-end-bonus-tax-calculator.html" class="nav-link">年终奖个税计算</a>
+                <a href="severance-pay-calculator.html" class="nav-link">离职补偿金计算</a>
+                <a href="retirement-delay-calculator.html" class="nav-link">延迟退休测算</a>
+                <a href="chinese-amount-converter.html" class="nav-link">金额大写转换</a>
+            </div>
+        </div>
+    </nav>
+    <main class="container">
+        <h1>离职经济补偿金计算器</h1>
+        <div class="card">
+            <div class="input-row">
+                <div class="input-group" id="step1">
+                    <label>离职前12个月平均月工资（税前）</label>
+                    <input type="number" id="monthSalary" value="15000" min="0" placeholder="例如：15000" oninput="calcCompensate()">
+                    <div class="type-tip">含基本工资、奖金、提成、补贴等税前收入</div>
+                </div>
+                <div class="input-group" id="step2">
+                    <label>工作年限计算</label>
+                    <div class="input-sub-group">
+                        <div class="input-group">
+                            <label style="font-size: 0.8rem; font-weight: normal;">入职日期（可手动填写/点选）</label>
+                            <div class="date-input-wrap">
+                                <input 
+                                    type="text" 
+                                    id="entryDate" 
+                                    placeholder="yyyy-mm-dd" 
+                                    oninput="filterInputChar()" 
+                                    onblur="formatAndCalcDate()"
+                                    onkeydown="if(event.key==='Enter') formatAndCalcDate()"
+                                >
+                                <span class="date-icon">📅</span>
+                                <input type="date" id="nativeDatePicker" onchange="selectDateFromPicker()">
+                            </div>
+                            <div class="error-text" id="dateError">请输入有效的日期，格式为yyyy-mm-dd，且不能晚于今天</div>
+                        </div>
+                        <div class="input-group">
+                            <label style="font-size: 0.8rem; font-weight: normal;">折算后年限（可手动改）</label>
+                            <input type="number" id="workYears" value="3.5" min="0" step="0.5" placeholder="例如：3.5" oninput="calcCompensate()">
+                        </div>
+                    </div>
+                    <div class="type-tip">选入职日期自动计算，满6个月按1年算，不满6个月按0.5年算</div>
+                </div>
+            </div>
+            <div class="input-row">
+                <div class="input-group" id="step3">
+                    <label>补偿类型</label>
+                    <select id="compensateType" onchange="updateTypeTip(); calcCompensate();">
+                        <option value="N">N - 经济补偿</option>
+                        <option value="N+1">N+1 - 无过失性辞退（未提前30天通知）</option>
+                        <option value="2N">2N - 违法解除劳动合同赔偿金</option>
+                    </select>
+                    <div class="type-tip" id="typeTip">经济补偿：劳动合同正常解除/终止，按工作年限支付的补偿</div>
+                </div>
+                <div class="input-group" id="step4">
+                    <label>当地上年职工年平均工资</label>
+                    <div class="input-sub-group">
+                        <div class="input-group">
+                            <label style="font-size: 0.8rem; font-weight: normal;">选择城市</label>
+                            <select id="citySelect" onchange="changeCity()">
+                                <option value="custom">自定义输入</option>
+                                <option value="188400">北京</option>
+                                <option value="204000">上海</option>
+                                <option value="192000">深圳</option>
+                                <option value="168000">广州</option>
+                                <option value="156000">杭州</option>
+                                <option value="150000">苏州</option>
+                                <option value="144000">南京</option>
+                                <option value="126000">武汉</option>
+                                <option value="120000">成都</option>
+                                <option value="114000">重庆</option>
+                                <option value="108000">西安</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label style="font-size: 0.8rem; font-weight: normal;">年平均工资（元）</label>
+                            <input type="number" id="localAvgSalary" value="150000" min="0" placeholder="例如：150000" oninput="calcCompensate()">
+                        </div>
+                    </div>
+                    <div class="type-tip">选城市自动填充，数据为2025年官方公布全口径城镇单位就业人员年平均工资</div>
+                </div>
+            </div>
+            <div class="btn-group" id="step5">
+                <button onclick="calcCompensate()">重新计算赔偿金额</button>
+                <button class="btn-success" onclick="copyDetail()">一键复制明细</button>
+                <button class="btn-accent" onclick="sharePage()">📤 一键分享</button>
+            </div>
+            <div id="res" class="result" style="display:none; margin-top: 15px;"></div>
+        </div>
+
+        <div class="card" id="printArea">
+            <h2>📋 离职经济补偿金明细单</h2>
+            <div class="result-detail">
+                <div class="result-item">
+                    <span>折算后工作年限</span>
+                    <strong id="printYears">-</strong>
+                </div>
+                <div class="result-item">
+                    <span>补偿计算基数</span>
+                    <strong id="printBase">-</strong>
+                </div>
+                <div class="result-item">
+                    <span>补偿类型</span>
+                    <strong id="printType">-</strong>
+                </div>
+                <div class="result-item">
+                    <span>税前补偿总额</span>
+                    <strong id="printTotal">-</strong>
+                </div>
+                <div class="result-item">
+                    <span>个税免税额度</span>
+                    <strong id="printFree">-</strong>
+                </div>
+                <div class="result-item">
+                    <span>应缴个税金额</span>
+                    <strong id="printTax">-</strong>
+                </div>
+                <div class="result-item total">
+                    <span>税后到手补偿金额</span>
+                    <strong id="printFinal">-</strong>
+                </div>
+            </div>
+            <div class="law-note">
+                <strong>📌 法律依据：</strong><br>
+                1. 《劳动合同法》第47条：经济补偿按劳动者在本单位工作的年限，每满一年支付一个月工资的标准向劳动者支付。六个月以上不满一年的，按一年计算；不满六个月的，支付半个月工资的经济补偿。月工资高于当地社平工资3倍的，按3倍数额支付，年限最高不超过12年。<br>
+                2. 个税政策：个人与用人单位解除劳动关系取得的一次性补偿收入，在当地上年职工平均工资3倍数额以内的部分，免征个人所得税；超过部分单独适用综合所得税率表计税。
+            </div>
+            <div class="btn-group">
+                <button class="btn-print" onclick="printDetail()">🖨️ 打印明细单</button>
+                <button class="btn-warning" onclick="downloadDetail()">📸 下载明细单图片</button>
+            </div>
+        </div>
+
+        <!-- 其他工具内链 -->
+        <div class="tools-nav">
+            <h3>📦 更多实用工具</h3>
+            <div class="tools-grid">
+                <a href="after-tax-salary-calculator.html" class="tool-card">
+                    <h4>税后工资计算器</h4>
+                    <p>2026最新个税规则，精准算出税后到手工资，附带完整个税明细</p>
+                </a>
+                <a href="overtime-pay-calculator.html" class="tool-card">
+                    <h4>加班费计算器</h4>
+                    <p>劳动法标准加班费计算，工作日/周末/节假日加班一键核算</p>
+                </a>
+                <a href="leave-deduction-calculator.html" class="tool-card">
+                    <h4>请假扣款计算器</h4>
+                    <p>事假/病假工资核算，符合医疗期标准，精准算出扣款金额</p>
+                </a>
+                <a href="year-end-bonus-tax-calculator.html" class="tool-card">
+                    <h4>年终奖个税对比计算器</h4>
+                    <p>单独计税/合并计税一键对比，自动算出最优省税方案</p>
+                </a>
+                <a href="retirement-delay-calculator.html" class="tool-card">
+                    <h4>延迟退休计算器</h4>
+                    <p>2026渐进式延迟退休政策测算，精确到月预测退休时间</p>
+                </a>
+                <a href="chinese-amount-converter.html" class="tool-card">
+                    <h4>中文大写金额转换工具</h4>
+                    <p>财务标准金额大写转换，适配报销单、支票、合同场景</p>
+                </a>
+            </div>
+        </div>
+    </main>
+    <footer class="footer-links">
+        <a href="contact.html">联系反馈</a> | <a href="privacy.html">隐私政策</a> | <a href="disclaimer.html">免责声明</a>
+        <p style="margin-top: 10px;">© 2026 智汇工薪助手 版权所有</p>
+    </footer>
+    <script>
+        // 综合所得个税税率表
+        const taxRateTable = [
+            { min: 0, max: 36000, rate: 0.03, quickDeduction: 0 },
+            { min: 36000, max: 144000, rate: 0.1, quickDeduction: 2520 },
+            { min: 144000, max: 300000, rate: 0.2, quickDeduction: 16920 },
+            { min: 300000, max: 420000, rate: 0.25, quickDeduction: 31920 },
+            { min: 420000, max: 660000, rate: 0.3, quickDeduction: 52920 },
+            { min: 660000, max: 960000, rate: 0.35, quickDeduction: 85920 },
+            { min: 960000, max: Infinity, rate: 0.45, quickDeduction: 181920 }
+        ];
+
+        // 补偿类型说明更新
+        function updateTypeTip() {
+            const type = document.getElementById('compensateType').value;
+            const typeTip = document.getElementById('typeTip');
+            const tipMap = {
+                'N': '经济补偿：劳动合同正常解除/终止，按工作年限支付的补偿',
+                'N+1': '无过失性辞退：医疗期满、不能胜任工作、客观情况重大变化，未提前30天书面通知需额外支付1个月工资',
+                '2N': '违法解除劳动合同赔偿金：公司违法辞退/解除劳动合同，需支付经济补偿的2倍，无代通知金'
+            };
+            typeTip.innerText = tipMap[type];
+        }
+
+        // 输入字符过滤
+        function filterInputChar() {
+            const input = document.getElementById('entryDate');
+            let value = input.value;
+            value = value.replace(/[^\d\-\/\.]/g, '');
+            input.value = value;
+        }
+
+        // 格式化日期并计算工作年限
+        function formatAndCalcDate() {
+            const input = document.getElementById('entryDate');
+            let value = input.value.trim();
+            const dateError = document.getElementById('dateError');
+            const workYearsInput = document.getElementById('workYears');
+            const today = new Date();
+
+            if (!value) {
+                dateError.style.display = 'none';
+                workYearsInput.value = 0;
+                calcCompensate();
+                return;
+            }
+
+            // 统一格式
+            value = value.replace(/[\/\.]/g, '-');
+            const dateRegex = /^\d{4}-\d{1,2}-\d{1,2}$/;
+            if (!dateRegex.test(value)) {
+                dateError.innerText = '请输入正确的日期格式，例如：2020-05-20';
+                dateError.style.display = 'block';
+                workYearsInput.value = 0;
+                return;
+            }
+
+            // 拆分年月日
+            const [year, month, day] = value.split('-').map(Number);
+            const formatMonth = month.toString().padStart(2, '0');
+            const formatDay = day.toString().padStart(2, '0');
+            const formatValue = `${year}-${formatMonth}-${formatDay}`;
+            input.value = formatValue;
+
+            // 日期有效性校验
+            const entryDate = new Date(year, month - 1, day);
+            const isDateValid = 
+                entryDate.getFullYear() === year &&
+                entryDate.getMonth() === month - 1 &&
+                entryDate.getDate() === day;
+            
+            if (!isDateValid) {
+                dateError.innerText = '请输入真实有效的日期，例如2月不能超过29天，月份不能超过12';
+                dateError.style.display = 'block';
+                workYearsInput.value = 0;
+                return;
+            }
+
+            // 日期范围校验
+            if (entryDate > today) {
+                dateError.innerText = '入职日期不能晚于今天';
+                dateError.style.display = 'block';
+                workYearsInput.value = 0;
+                return;
+            }
+
+            // 校验通过
+            dateError.style.display = 'none';
+
+            // 计算工作年限
+            let calcYears = today.getFullYear() - entryDate.getFullYear();
+            let calcMonths = today.getMonth() - entryDate.getMonth();
+
+            if (calcMonths < 0) {
+                calcYears--;
+                calcMonths += 12;
+            }
+
+            // 按劳动合同法折算
+            let finalYears;
+            if (calcMonths >= 6) {
+                finalYears = calcYears + 1;
+            } else if (calcMonths > 0) {
+                finalYears = calcYears + 0.5;
+            } else {
+                finalYears = calcYears;
+            }
+
+            finalYears = Math.max(finalYears, 0);
+            workYearsInput.value = finalYears;
+            calcCompensate();
+        }
+
+        // 从日期选择器选中日期
+        function selectDateFromPicker() {
+            const nativePicker = document.getElementById('nativeDatePicker');
+            const entryInput = document.getElementById('entryDate');
+            const selectedDate = nativePicker.value;
+            if (selectedDate) {
+                entryInput.value = selectedDate;
+                formatAndCalcDate();
+            }
+        }
+
+        // 城市切换
+        function changeCity() {
+            const citySelect = document.getElementById('citySelect');
+            const localAvgSalaryInput = document.getElementById('localAvgSalary');
+            const selectedValue = citySelect.value;
+
+            if (selectedValue === 'custom') {
+                localAvgSalaryInput.readOnly = false;
+                localAvgSalaryInput.value = '';
+                localAvgSalaryInput.focus();
+            } else {
+                localAvgSalaryInput.value = selectedValue;
+                localAvgSalaryInput.readOnly = true;
+                calcCompensate();
+            }
+        }
+
+        // 计算个税
+        function calcTax(income) {
+            for (let i = 0; i < taxRateTable.length; i++) {
+                const item = taxRateTable[i];
+                if (income > item.min && income <= item.max) {
+                    return income * item.rate - item.quickDeduction;
+                }
+            }
+            return 0;
+        }
+
+        // 核心补偿金计算逻辑
+        function calcCompensate() {
+            const monthSalary = parseFloat(document.getElementById('monthSalary').value) || 0;
+            const inputYears = parseFloat(document.getElementById('workYears').value) || 0;
+            const compensateType = document.getElementById('compensateType').value;
+            const localAvgAnnualSalary = parseFloat(document.getElementById('localAvgSalary').value) || 0;
+            const res = document.getElementById('res');
+
+            // 折算工作年限
+            const integerYears = Math.floor(inputYears);
+            const decimalPart = inputYears - integerYears;
+            let finalYears;
+            if (decimalPart >= 0.5) {
+                finalYears = integerYears + 1;
+            } else if (decimalPart > 0) {
+                finalYears = integerYears + 0.5;
+            } else {
+                finalYears = integerYears;
+            }
+
+            // 3倍社平工资封顶
+            const localAvgMonthlySalary = localAvgAnnualSalary / 12;
+            const maxBase = localAvgMonthlySalary * 3;
+            let finalBase = monthSalary;
+            let maxYears = finalYears;
+            if (monthSalary > maxBase && maxBase > 0) {
+                finalBase = maxBase;
+                maxYears = Math.min(finalYears, 12);
+            }
+
+            // 计算补偿总额
+            let totalCompensate;
+            let typeName;
+            switch(compensateType) {
+                case 'N':
+                    totalCompensate = finalBase * maxYears;
+                    typeName = 'N - 经济补偿';
+                    break;
+                case 'N+1':
+                    totalCompensate = finalBase * maxYears + monthSalary;
+                    typeName = 'N+1 - 无过失性辞退';
+                    break;
+                case '2N':
+                    totalCompensate = finalBase * maxYears * 2;
+                    typeName = '2N - 违法解除赔偿金';
+                    break;
+            }
+
+            // 计算个税
+            const taxFreeLimit = localAvgAnnualSalary * 3;
+            const taxableIncome = Math.max(totalCompensate - taxFreeLimit, 0);
+            const shouldPayTax = taxableIncome > 0 ? calcTax(taxableIncome) : 0;
+            const finalIncome = totalCompensate - shouldPayTax;
+
+            // 结果展示
+            res.style.display = 'block';
+            res.innerHTML = `
+                📌 折算后工作年限：${finalYears}年<br>
+                📌 补偿计算基数：￥${finalBase.toFixed(2)}/月${monthSalary > maxBase && maxBase > 0 ? '（已按3倍社平工资封顶）' : ''}<br>
+                📌 补偿类型：${typeName}<br>
+                📌 税前补偿总额：￥${totalCompensate.toFixed(2)}<br>
+                📌 个税免税额度：￥${taxFreeLimit.toFixed(2)}<br>
+                📌 应缴个税：￥${shouldPayTax.toFixed(2)}<br>
+                📌 税后到手金额：<strong style="font-size:1.2rem; color:var(--success);">￥${finalIncome.toFixed(2)}</strong>
+            `;
+
+            // 同步到打印明细
+            document.getElementById('printYears').innerText = `${finalYears}年`;
+            document.getElementById('printBase').innerText = `￥${finalBase.toFixed(2)}/月`;
+            document.getElementById('printType').innerText = typeName;
+            document.getElementById('printTotal').innerText = `￥${totalCompensate.toFixed(2)}`;
+            document.getElementById('printFree').innerText = `￥${taxFreeLimit.toFixed(2)}`;
+            document.getElementById('printTax').innerText = `￥${shouldPayTax.toFixed(2)}`;
+            document.getElementById('printFinal').innerText = `￥${finalIncome.toFixed(2)}`;
+        }
+
+        // 一键复制明细
+        function copyDetail() {
+            const finalIncome = document.getElementById('printFinal').innerText;
+            if (finalIncome === '-') {
+                alert('请先完成计算生成明细！');
+                return;
+            }
+            const copyText = `
+离职经济补偿金明细单
+折算后工作年限：${document.getElementById('printYears').innerText}
+补偿计算基数：${document.getElementById('printBase').innerText}
+补偿类型：${document.getElementById('printType').innerText}
+税前补偿总额：${document.getElementById('printTotal').innerText}
+个税免税额度：${document.getElementById('printFree').innerText}
+应缴个税金额：${document.getElementById('printTax').innerText}
+税后到手补偿金额：${finalIncome}
+            `.trim();
+            navigator.clipboard.writeText(copyText).then(() => {
+                alert('赔偿明细已复制到剪贴板！');
+            }).catch(() => {
+                const textArea = document.createElement('textarea');
+                textArea.value = copyText;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('赔偿明细已复制到剪贴板！');
+            });
+        }
+
+        // 打印明细
+        function printDetail() { window.print(); }
+        // 下载明细
+        function downloadDetail() { alert('请使用浏览器截图功能保存，或点击打印按钮另存为PDF'); }
+        // 分享功能
+        function sharePage() {
+            const url = window.location.href;
+            const title = document.title;
+            if (navigator.share) {
+                navigator.share({ title, url }).catch(console.error);
+            } else {
+                navigator.clipboard.writeText(url).then(() => {
+                    alert('链接已复制到剪贴板！');
+                }).catch(() => alert('复制失败，请手动复制链接'));
+            }
+        }
+        // 页面加载初始化
+        window.onload = function() {
+            updateTypeTip();
+            calcCompensate();
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('nativeDatePicker').max = today;
+        };
+    </script>
+</body>
+</html>

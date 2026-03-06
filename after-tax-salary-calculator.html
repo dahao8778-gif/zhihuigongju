@@ -1,0 +1,617 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026税后工资计算器_专项附加扣除_个税在线计算 - 智汇工薪助手</title>
+    <meta name="description" content="2026最新税后工资计算器，支持专项附加扣除一键填报、五险一金一键计算，精准算出税后到手工资及个税明细，工薪族发薪必备免费工具。">
+<link rel="canonical" href="https://lixijsq.com/after-tax-salary-calculator.html">
+    <style>
+        /* 基础样式补充（保持原有样式逻辑） */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft Yahei", sans-serif;
+        }
+        :root {
+            --success: #28a745;
+            --warning: #ffc107;
+            --accent: #17a2b8;
+        }
+        body {
+            background-color: #f8f9fa;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            /* 核心修改：导航背景改为蓝色 */
+            background: #007bff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .logo {
+            font-size: 1.2rem;
+            font-weight: bold;
+            /* 导航文字改为白色，保证可读性 */
+            color: #fff;
+            text-decoration: none;
+        }
+        .back-link {
+            /* 导航文字改为白色，保证可读性 */
+            color: #fff;
+            text-decoration: none;
+        }
+        .nav-menu {
+            display: flex;
+            gap: 15px;
+        }
+        .nav-link {
+            /* 导航文字改为白色，保证可读性 */
+            color: #fff;
+            text-decoration: none;
+            padding: 5px 10px;
+        }
+        .card {
+            background: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        h2 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        h3 {
+            font-size: 1.2rem;
+            margin: 20px 0 15px;
+            color: #333;
+        }
+        h4 {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        .input-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .input-group {
+            flex: 1;
+            min-width: 250px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        .btn-group {
+            margin: 20px 0;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background: #007bff;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .btn-success {
+            background: var(--success);
+        }
+        .btn-accent {
+            background: var(--accent);
+        }
+        .btn-print {
+            background: #6c757d;
+        }
+        .btn-warning {
+            background: var(--warning);
+            color: #333;
+        }
+        .result {
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            line-height: 1.8;
+        }
+        .result-detail {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .result-item.total {
+            font-weight: bold;
+            font-size: 1.1rem;
+            border-bottom: none;
+            margin-top: 5px;
+        }
+        .tax-note {
+            font-size: 0.9rem;
+            color: #666;
+            margin: 15px 0;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .tool-card {
+            background: #fff;
+            padding: 15px;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            text-decoration: none;
+            color: #333;
+        }
+        .tool-card p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        .footer-links {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+            margin: 0 5px;
+        }
+        .type-tip {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 5px;
+        }
+        /* 新增专项附加扣除分项样式 */
+        .deduction-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+        .deduction-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .deduction-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        .deduction-item input[type="number"] {
+            flex: 1;
+            min-width: 100px;
+            padding: 6px;
+            font-size: 0.9rem;
+        }
+        .deduction-total {
+            margin: 10px 0;
+            padding: 10px;
+            background: #e9f7fe;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+    </style>
+    <!-- SoftwareApplication 结构化标记 -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "2026税后工资计算器",
+      "applicationCategory": "CalculatorApplication",
+      "operatingSystem": "Web",
+      "description": "2026最新个人所得税法规则开发的税后工资计算器，支持五险一金、专项附加扣除完整参数输入，精准计算税后到手工资、个税缴纳明细，一键复制结果。",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "CNY"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "智汇工薪助手"
+      },
+      "featureList": [
+        "支持税前月工资、五险一金输入",
+        "6项专项附加扣除完整支持",
+        "税后到手工资精准计算",
+        "个税缴纳明细完整展示",
+        "一键复制结果、打印明细单"
+      ]
+    }
+    </script>
+    <!-- HowTo 结构化标记 -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "税后工资计算使用教程",
+      "description": "教你如何使用税后工资计算器，精准算出每月税后到手工资及个税明细",
+      "totalTime": "PT1M",
+      "steps": [
+        {
+          "@type": "HowToStep",
+          "name": "输入税前月工资金额",
+          "text": "在对应输入框中填写你的税前月基本工资，包含固定薪资、绩效等固定收入",
+          "url": "#step1"
+        },
+        {
+          "@type": "HowToStep",
+          "name": "填写个人缴纳的五险一金金额",
+          "text": "输入每月个人承担的养老保险、医疗保险、失业保险、住房公积金等五险一金总金额",
+          "url": "#step2"
+        },
+        {
+          "@type": "HowToStep",
+          "name": "选择专项附加扣除项目",
+          "text": "勾选符合条件的专项附加扣除项目（子女教育、继续教育等），系统自动计算扣除总额",
+          "url": "#step3"
+        },
+        {
+          "@type": "HowToStep",
+          "name": "点击计算按钮",
+          "text": "点击「计算税后工资」按钮，系统将自动按照最新个税规则计算应缴个税",
+          "url": "#step4"
+        },
+        {
+          "@type": "HowToStep",
+          "name": "查看计算结果",
+          "text": "查看税后到手工资、应缴个税、应纳税所得额等完整明细，可一键复制或打印结果",
+          "url": "#step5"
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+   <nav>
+    <div class="nav-container">
+        <a href="index.html" class="logo" title="智汇工薪助手首页">智汇工薪助手</a>
+        <div class="nav-menu">
+            <a href="after-tax-salary-calculator.html" class="nav-link" title="2026税后工资计算器">税后工资计算</a>
+            <a href="overtime-pay-calculator.html" class="nav-link" title="2026加班费计算器">加班费计算</a>
+            <a href="leave-deduction-calculator.html" class="nav-link" title="请假扣款计算器">请假扣款计算</a>
+            <a href="year-end-bonus-tax-calculator.html" class="nav-link" title="年终奖个税计算器">年终奖个税计算</a>
+            <a href="severance-pay-calculator.html" class="nav-link" title="离职补偿金计算器">离职补偿金计算</a>
+            <a href="retirement-delay-calculator.html" class="nav-link" title="2026延迟退休计算器">延迟退休测算</a>
+            <a href="chinese-amount-converter.html" class="nav-link" title="中文大写金额转换工具">金额大写转换</a>
+        </div>
+    </div>
+</nav>
+    <main class="container">
+        <h1>2026税后工资计算器</h1>
+        <div class="card">
+            <div class="input-row" id="step1">
+                <div class="input-group">
+                    <label>税前月工资（元）</label>
+                    <input type="number" id="monthSalary" value="12000" min="0" placeholder="例如：12000">
+                </div>
+                <div class="input-group" id="step2">
+                    <label>五险一金个人缴纳（元/月）</label>
+                    <input type="number" id="monthInsurance" value="2000" min="0" placeholder="例如：2000">
+                </div>
+            </div>
+            
+            <!-- 优化：专项附加扣除改为可勾选分项 -->
+            <div class="input-group" id="step3">
+                <label>专项附加扣除（元/月）</label>
+                <div class="deduction-items">
+                    <div class="deduction-item">
+                        <input type="checkbox" id="deduction1" checked onchange="calcDeductionTotal()">
+                        <label for="deduction1">子女教育</label>
+                        <input type="number" id="deduction1Amount" value="1000" min="0" oninput="calcDeductionTotal()" placeholder="金额">
+                    </div>
+                    <div class="deduction-item">
+                        <input type="checkbox" id="deduction2" onchange="calcDeductionTotal()">
+                        <label for="deduction2">继续教育</label>
+                        <input type="number" id="deduction2Amount" value="400" min="0" oninput="calcDeductionTotal()" placeholder="金额">
+                    </div>
+                    <div class="deduction-item">
+                        <input type="checkbox" id="deduction3" checked onchange="calcDeductionTotal()">
+                        <label for="deduction3">住房贷款利息</label>
+                        <input type="number" id="deduction3Amount" value="1000" min="0" oninput="calcDeductionTotal()" placeholder="金额">
+                    </div>
+                    <div class="deduction-item">
+                        <input type="checkbox" id="deduction4" onchange="calcDeductionTotal()">
+                        <label for="deduction4">住房租金</label>
+                        <input type="number" id="deduction4Amount" value="1500" min="0" oninput="calcDeductionTotal()" placeholder="金额">
+                    </div>
+                    <div class="deduction-item">
+                        <input type="checkbox" id="deduction5" checked onchange="calcDeductionTotal()">
+                        <label for="deduction5">赡养老人</label>
+                        <input type="number" id="deduction5Amount" value="2000" min="0" oninput="calcDeductionTotal()" placeholder="金额">
+                    </div>
+                    <div class="deduction-item">
+                        <input type="checkbox" id="deduction6" onchange="calcDeductionTotal()">
+                        <label for="deduction6">大病医疗（月均）</label>
+                        <input type="number" id="deduction6Amount" value="6667" min="0" oninput="calcDeductionTotal()" placeholder="金额">
+                    </div>
+                    <div class="deduction-item">
+                        <input type="checkbox" id="deduction7" checked onchange="calcDeductionTotal()">
+                        <label for="deduction7">3岁以下婴幼儿照护</label>
+                        <input type="number" id="deduction7Amount" value="1000" min="0" oninput="calcDeductionTotal()" placeholder="金额">
+                    </div>
+                </div>
+                <!-- 自动计算的总额展示 -->
+                <div class="deduction-total">
+                    专项附加扣除总额：<span id="monthDeductionTotal">3000</span> 元/月
+                </div>
+                <div class="type-tip">勾选符合条件的扣除项，金额可根据实际情况修改（参考2026年个税扣除标准）</div>
+            </div>
+            
+            <div class="btn-group" id="step4">
+                <button onclick="calcSalary()">计算税后工资</button>
+                <button class="btn-success" onclick="copyResult()">一键复制结果</button>
+                <button class="btn-accent" onclick="sharePage()">📤 一键分享</button>
+            </div>
+            <div id="res" class="result" style="display:none; margin-top: 15px;" id="step5"></div>
+        </div>
+        
+        <div class="card" id="printArea">
+            <h2>📋 工资个税明细单</h2>
+            <div class="result-detail">
+                <div class="result-item">
+                    <span>税前月工资</span>
+                    <strong id="printSalary">-</strong>
+                </div>
+                <div class="result-item">
+                    <span>五险一金个人缴纳</span>
+                    <strong id="printInsurance">-</strong>
+                </div>
+                <div class="result-item">
+                    <span>专项附加扣除</span>
+                    <strong id="printDeduction">-</strong>
+                </div>
+                <div class="result-item">
+                    <span>个税起征点</span>
+                    <strong id="printThreshold">￥5000</strong>
+                </div>
+                <div class="result-item">
+                    <span>应纳税所得额</span>
+                    <strong id="printTaxable">-</strong>
+                </div>
+                <div class="result-item">
+                    <span>应缴个人所得税</span>
+                    <strong id="printTax">-</strong>
+                </div>
+                <div class="result-item total">
+                    <span>税后到手工资</span>
+                    <strong id="printFinal">-</strong>
+                </div>
+            </div>
+            <div class="tax-note">
+                <strong>📌 个税规则说明：</strong>工资薪金所得采用累计预扣法计算，本计算器按单月固定收入测算，年度汇算以税务系统核算为准；个税起征点为5000元/月，即60000元/年。
+            </div>
+            <div class="btn-group">
+                <button class="btn-print" onclick="printDetail()">🖨️ 打印明细单</button>
+                <button class="btn-warning" onclick="downloadDetail()">📸 下载明细单图片</button>
+            </div>
+        </div>
+<div class="card" style="border: 1px solid #ffe3e3; background: #fffafb;">
+    <h3 style="color: #e03131;">🔥 必看攻略</h3>
+    <p>年终奖发了要交多少税？选错计税方式可能损失上千元！</p>
+    <a href="article-year-end-bonus-avoidance.html" style="color: var(--primary); font-weight: bold;">查看：2026年终奖计税避坑指南 →</a>
+</div>
+        <!-- 其他工具内链 -->
+        <div class="tools-nav">
+            <h3>📦 更多实用工具</h3>
+            <div class="tools-grid">
+                <a href="overtime-pay-calculator.html" class="tool-card">
+                    <h4>加班费计算器</h4>
+                    <p>劳动法标准加班费计算，工作日/周末/节假日加班一键核算</p>
+                </a>
+                <a href="leave-deduction-calculator.html" class="tool-card">
+                    <h4>请假扣款计算器</h4>
+                    <p>事假/病假工资核算，符合医疗期标准，精准算出扣款金额</p>
+                </a>
+                <a href="year-end-bonus-tax-calculator.html" class="tool-card">
+                    <h4>年终奖个税对比计算器</h4>
+                    <p>单独计税/合并计税一键对比，自动算出最优省税方案</p>
+                </a>
+                <a href="severance-pay-calculator.html" class="tool-card">
+                    <h4>离职经济补偿金计算器</h4>
+                    <p>N/N+1/2N补偿计算，自动核算个税免税额度，精准算到手金额</p>
+                </a>
+                <a href="retirement-delay-calculator.html" class="tool-card">
+                    <h4>延迟退休计算器</h4>
+                    <p>2026渐进式延迟退休政策测算，精确到月预测退休时间</p>
+                </a>
+                <a href="chinese-amount-converter.html" class="tool-card">
+                    <h4>中文大写金额转换工具</h4>
+                    <p>财务标准金额大写转换，适配报销单、支票、合同场景</p>
+                </a>
+            </div>
+        </div>
+    </main>
+    <footer class="footer-links">
+        <a href="contact.html">联系反馈</a> | <a href="privacy.html">隐私政策</a> | <a href="disclaimer.html">免责声明</a>
+        <p style="margin-top: 10px;">© 2026 智汇工薪助手 版权所有</p>
+    </footer>
+    <script>
+        // 综合所得年度个税税率表（2026最新）
+        const taxRateTable = [
+            { min: 0, max: 36000, rate: 0.03, quickDeduction: 0 },
+            { min: 36000, max: 144000, rate: 0.1, quickDeduction: 2520 },
+            { min: 144000, max: 300000, rate: 0.2, quickDeduction: 16920 },
+            { min: 300000, max: 420000, rate: 0.25, quickDeduction: 31920 },
+            { min: 420000, max: 660000, rate: 0.3, quickDeduction: 52920 },
+            { min: 660000, max: 960000, rate: 0.35, quickDeduction: 85920 },
+            { min: 960000, max: Infinity, rate: 0.45, quickDeduction: 181920 }
+        ];
+
+        // 计算个税核心函数
+        function calcTax(income) {
+            for (let i = 0; i < taxRateTable.length; i++) {
+                const item = taxRateTable[i];
+                if (income > item.min && income <= item.max) {
+                    return income * item.rate - item.quickDeduction;
+                }
+            }
+            return 0;
+        }
+
+        // 新增：计算专项附加扣除总额
+        function calcDeductionTotal() {
+            const deductions = [
+                { id: 'deduction1', amountId: 'deduction1Amount' },
+                { id: 'deduction2', amountId: 'deduction2Amount' },
+                { id: 'deduction3', amountId: 'deduction3Amount' },
+                { id: 'deduction4', amountId: 'deduction4Amount' },
+                { id: 'deduction5', amountId: 'deduction5Amount' },
+                { id: 'deduction6', amountId: 'deduction6Amount' },
+                { id: 'deduction7', amountId: 'deduction7Amount' }
+            ];
+            
+            let total = 0;
+            deductions.forEach(item => {
+                const checkbox = document.getElementById(item.id);
+                const amountInput = document.getElementById(item.amountId);
+                if (checkbox.checked) {
+                    total += parseFloat(amountInput.value) || 0;
+                }
+            });
+            
+            document.getElementById('monthDeductionTotal').textContent = total.toFixed(2);
+            return total;
+        }
+
+        // 核心税后工资计算逻辑（优化：读取自动计算的专项附加扣除总额）
+        function calcSalary() {
+            const monthSalary = parseFloat(document.getElementById('monthSalary').value) || 0;
+            const monthInsurance = parseFloat(document.getElementById('monthInsurance').value) || 0;
+            // 读取自动计算的专项附加扣除总额
+            const monthDeduction = calcDeductionTotal();
+            const res = document.getElementById('res');
+            const monthlyThreshold = 5000;
+
+            // 计算应纳税所得额
+            const taxableIncome = Math.max(monthSalary - monthInsurance - monthDeduction - monthlyThreshold, 0);
+            // 单月个税（按年度税率表折算）
+            const annualTaxable = taxableIncome * 12;
+            const annualTax = calcTax(annualTaxable);
+            const monthTax = annualTax / 12;
+            // 税后工资
+            const finalSalary = monthSalary - monthInsurance - monthTax;
+
+            // 结果展示
+            res.style.display = 'block';
+            res.innerHTML = `
+                📌 税前月工资：￥${monthSalary.toFixed(2)}<br>
+                📌 五险一金个人缴纳：￥${monthInsurance.toFixed(2)}<br>
+                📌 专项附加扣除：￥${monthDeduction.toFixed(2)}<br>
+                📌 个税起征点：￥${monthlyThreshold.toFixed(2)}<br>
+                📌 应纳税所得额：￥${taxableIncome.toFixed(2)}<br>
+                📌 当月应缴个税：￥${monthTax.toFixed(2)}<br>
+                📌 税后到手工资：<strong style="font-size:1.2rem; color:var(--success);">￥${finalSalary.toFixed(2)}</strong>
+            `;
+
+            // 同步到打印明细
+            document.getElementById('printSalary').innerText = `￥${monthSalary.toFixed(2)}`;
+            document.getElementById('printInsurance').innerText = `￥${monthInsurance.toFixed(2)}`;
+            document.getElementById('printDeduction').innerText = `￥${monthDeduction.toFixed(2)}`;
+            document.getElementById('printTaxable').innerText = `￥${taxableIncome.toFixed(2)}`;
+            document.getElementById('printTax').innerText = `￥${monthTax.toFixed(2)}`;
+            document.getElementById('printFinal').innerText = `￥${finalSalary.toFixed(2)}`;
+        }
+
+        // 一键复制结果
+        function copyResult() {
+            const finalSalary = document.getElementById('printFinal').innerText;
+            if (finalSalary === '-') {
+                alert('请先点击「计算税后工资」生成结果！');
+                return;
+            }
+            const copyText = `
+工资个税明细单
+税前月工资：${document.getElementById('printSalary').innerText}
+五险一金个人缴纳：${document.getElementById('printInsurance').innerText}
+专项附加扣除：${document.getElementById('printDeduction').innerText}
+个税起征点：￥5000
+应纳税所得额：${document.getElementById('printTaxable').innerText}
+当月应缴个税：${document.getElementById('printTax').innerText}
+税后到手工资：${finalSalary}
+            `.trim();
+            navigator.clipboard.writeText(copyText).then(() => {
+                alert('结果已复制到剪贴板！');
+            }).catch(() => {
+                const textArea = document.createElement('textarea');
+                textArea.value = copyText;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('结果已复制到剪贴板！');
+            });
+        }
+
+        // 打印明细
+        function printDetail() { window.print(); }
+        // 下载明细
+        function downloadDetail() { alert('请使用浏览器截图功能保存，或点击打印按钮另存为PDF'); }
+        // 分享功能
+        function sharePage() {
+            const url = window.location.href;
+            const title = document.title;
+            if (navigator.share) {
+                navigator.share({ title, url }).catch(console.error);
+            } else {
+                navigator.clipboard.writeText(url).then(() => {
+                    alert('链接已复制到剪贴板！');
+                }).catch(() => alert('复制失败，请手动复制链接'));
+            }
+        }
+        
+        // 页面加载初始化
+        window.onload = function() {
+            calcDeductionTotal(); // 初始化计算扣除总额
+            calcSalary(); // 默认计算
+        };
+    </script>
+</body>
+</html>

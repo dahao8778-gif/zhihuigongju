@@ -1,0 +1,355 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中文大写金额转换工具_财务报销支票标准大写转换 - 智汇工薪助手</title>
+    <meta name="description" content="符合财务、银行标准的中文大写金额转换工具，支持一键复制，适配报销单、支票、合同等场景，避免金额填写错误，免费在线使用,支持一键分享。">
+    <link rel="stylesheet" href="style.css">
+    <link rel="canonical" href="https://lixijsq.com/chinese-amount-converter.html">
+    <!-- SoftwareApplication 结构化标记 -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "中文大写金额转换工具",
+      "applicationCategory": "CalculatorApplication",
+      "operatingSystem": "Web",
+      "description": "符合财务、银行标准的中文大写金额转换工具，严格遵循《会计基础工作规范》，支持人民币金额大小写一键转换，适配报销单、支票、合同等场景，一键复制结果。",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "CNY"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "智汇工薪助手"
+      },
+      "featureList": [
+        "符合财务、银行标准的金额大写转换",
+        "支持整数、小数金额完整转换",
+        "自动处理零、整规范",
+        "适配报销单、支票、合同场景",
+        "一键复制转换结果",
+        "支持批量转换"
+      ]
+    }
+    </script>
+    <!-- HowTo 结构化标记 -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "中文大写金额转换使用教程",
+      "description": "教你如何使用中文大写金额转换工具，快速生成符合财务标准的人民币大写金额",
+      "totalTime": "PT30S",
+      "steps": [
+        {
+          "@type": "HowToStep",
+          "name": "输入阿拉伯数字金额",
+          "text": "在输入框中填写你需要转换的阿拉伯数字人民币金额，支持整数和小数（角分）",
+          "url": "#step1"
+        },
+        {
+          "@type": "HowToStep",
+          "name": "点击转换按钮",
+          "text": "点击「转换为大写金额」按钮，系统将自动按照财务标准生成对应的中文大写金额",
+          "url": "#step2"
+        },
+        {
+          "@type": "HowToStep",
+          "name": "查看转换结果",
+          "text": "查看生成的中文大写金额，系统自动处理零、整规范，完全符合财务、银行要求",
+          "url": "#step3"
+        },
+        {
+          "@type": "HowToStep",
+          "name": "一键复制结果",
+          "text": "点击「一键复制结果」按钮，即可将生成的大写金额复制到剪贴板，直接粘贴到报销单、支票、合同中使用",
+          "url": "#step4"
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">智汇工薪助手</a>
+            <a href="index.html" class="back-link">← 返回首页</a>
+            <div class="nav-menu">
+                <a href="after-tax-salary-calculator.html" class="nav-link">税后工资计算</a>
+                <a href="overtime-pay-calculator.html" class="nav-link">加班费计算</a>
+                <a href="leave-deduction-calculator.html" class="nav-link">请假扣款计算</a>
+                <a href="year-end-bonus-tax-calculator.html" class="nav-link">年终奖个税</a>
+                <a href="severance-pay-calculator.html" class="nav-link">离职补偿金计算</a>
+                <a href="retirement-delay-calculator.html" class="nav-link">延迟退休测算</a>
+                <a href="chinese-amount-converter.html" class="nav-link">金额大写转换</a>
+            </div>
+        </div>
+    </nav>
+    <main class="container">
+        <h1>中文大写金额转换工具</h1>
+        <div class="card">
+            <div class="input-group" id="step1">
+                <label>阿拉伯数字金额（元）</label>
+                <input type="text" id="amountInput" placeholder="例如：1234.56" oninput="filterAmountInput()">
+                <div class="type-tip">支持整数、小数金额，最多保留2位小数（角分），符合财务规范</div>
+            </div>
+            <div class="btn-group" id="step2">
+                <button onclick="convertAmount()">转换为大写金额</button>
+                <button class="btn-success" onclick="copyResult()">一键复制结果</button>
+                <button class="btn-warning" onclick="clearInput()">清空输入</button>
+            </div>
+            <div id="res" class="result" style="display:none; margin-top: 15px;" id="step3"></div>
+        </div>
+
+        <div class="card" id="printArea">
+            <h2>📋 转换结果</h2>
+            <div class="result-detail">
+                <div class="result-item">
+                    <span>阿拉伯数字金额</span>
+                    <strong id="printNum">-</strong>
+                </div>
+                <div class="result-item total">
+                    <span>中文大写金额（财务标准）</span>
+                    <strong id="printChinese">-</strong>
+                </div>
+            </div>
+            <div class="law-note">
+                <strong>📌 规范说明：</strong>本工具严格遵循《会计基础工作规范》和银行支票填写标准：<br>
+                1. 中文大写金额数字到元为止的，在元之后应写整（或正）字，在角之后可以不写整（或正）字，分之后不写整（或正）字；<br>
+                2. 阿拉伯数字中间有0时，中文大写要写零字，中间连续有几个0时，只写一个零字。
+            </div>
+            <div class="btn-group" id="step4">
+                <button class="btn-print" onclick="printResult()">🖨️ 打印结果</button>
+                <button class="btn-accent" onclick="sharePage()">📤 一键分享</button>
+            </div>
+        </div>
+
+        <!-- 常用金额快速转换 -->
+        <div class="card">
+            <h3>💰 常用金额快速转换</h3>
+            <div class="tools-grid">
+                <button class="btn-accent" onclick="quickConvert(100)">100元</button>
+                <button class="btn-accent" onclick="quickConvert(1000)">1000元</button>
+                <button class="btn-accent" onclick="quickConvert(5000)">5000元</button>
+                <button class="btn-accent" onclick="quickConvert(10000)">10000元</button>
+                <button class="btn-accent" onclick="quickConvert(50000)">50000元</button>
+                <button class="btn-accent" onclick="quickConvert(100000)">100000元</button>
+            </div>
+        </div>
+        <!-- 原有工具核心功能 结束 -->
+        </div>
+
+
+        <div class="tools-nav">
+            <h2>扩展阅读</h2>
+            <div class="tools-grid">
+                <a href="article-chinese-amount-converter-1.html" class="tool-card">
+                    <h4>人民币大写规范与填写标准</h4>
+                    <p>详解票据法规定的大写规则，避免财务填写错误导致的票据无效</p>
+                </a>
+                <a href="article-chinese-amount-converter-2.html" class="tool-card">
+                    <h4>财务单据填写常见错误与避坑指南</h4>
+                    <p>汇总支票、报销单、借条等单据大写填写的高频错误与正确示范</p>
+                </a>
+            </div>
+        </div>
+
+    </div>
+    <!-- 页面大容器结束 -->
+
+    <!-- 原有页脚代码 -->
+    <footer>
+
+        <!-- 其他工具内链 -->
+        <div class="tools-nav">
+            <h3>📦 更多实用工具</h3>
+            <div class="tools-grid">
+                <a href="after-tax-salary-calculator.html" class="tool-card">
+                    <h4>税后工资计算器</h4>
+                    <p>2026最新个税规则，精准算出税后到手工资，附带完整个税明细</p>
+                </a>
+                <a href="overtime-pay-calculator.html" class="tool-card">
+                    <h4>加班费计算器</h4>
+                    <p>劳动法标准加班费计算，工作日/周末/节假日加班一键核算</p>
+                </a>
+                <a href="leave-deduction-calculator.html" class="tool-card">
+                    <h4>请假扣款计算器</h4>
+                    <p>事假/病假工资核算，符合医疗期标准，精准算出扣款金额</p>
+                </a>
+                <a href="year-end-bonus-tax-calculator.html" class="tool-card">
+                    <h4>年终奖个税对比计算器</h4>
+                    <p>单独计税/合并计税一键对比，自动算出最优省税方案</p>
+                </a>
+                <a href="severance-pay-calculator.html" class="tool-card">
+                    <h4>离职经济补偿金计算器</h4>
+                    <p>N/N+1/2N补偿计算，自动核算个税免税额度，精准算到手金额</p>
+                </a>
+                <a href="retirement-delay-calculator.html" class="tool-card">
+                    <h4>延迟退休计算器</h4>
+                    <p>2026渐进式延迟退休政策测算，精确到月预测退休时间</p>
+                </a>
+            </div>
+        </div>
+    </main>
+    <footer class="footer-links">
+        <a href="contact.html">联系反馈</a> | <a href="privacy.html">隐私政策</a> | <a href="disclaimer.html">免责声明</a>
+        <p style="margin-top: 10px;">© 2026 智汇工薪助手 版权所有</p>
+    </footer>
+    <script>
+        // 金额字符过滤
+        function filterAmountInput() {
+            const input = document.getElementById('amountInput');
+            let value = input.value;
+            // 只允许输入数字和一个小数点
+            value = value.replace(/[^\d.]/g, '');
+            // 只保留一个小数点
+            const dotIndex = value.indexOf('.');
+            if (dotIndex !== -1) {
+                // 小数点后最多保留2位
+                value = value.slice(0, dotIndex + 3);
+            }
+            input.value = value;
+        }
+
+        // 核心金额转换逻辑（严格遵循财务规范）
+        function convertAmount() {
+            const input = document.getElementById('amountInput').value.trim();
+            const res = document.getElementById('res');
+
+            // 输入校验
+            if (!input || isNaN(input) || parseFloat(input) < 0) {
+                alert('请输入有效的非负数字金额！');
+                return;
+            }
+
+            // 转换为分，避免浮点数精度问题
+            const amount = parseFloat(input);
+            const amountStr = amount.toFixed(2);
+            const [yuanStr, jiaoFenStr] = amountStr.split('.');
+            const yuan = parseInt(yuanStr);
+            const jiao = parseInt(jiaoFenStr[0]);
+            const fen = parseInt(jiaoFenStr[1]);
+
+            // 大写数字映射
+            const digitChinese = ['零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖'];
+            const unitChinese = ['', '拾', '佰', '仟', '万', '拾', '佰', '仟', '亿', '拾', '佰', '仟'];
+
+            // 转换元部分
+            let yuanChinese = '';
+            if (yuan > 0) {
+                const yuanArr = yuanStr.split('').reverse();
+                let zeroFlag = false;
+                for (let i = 0; i < yuanArr.length; i++) {
+                    const digit = parseInt(yuanArr[i]);
+                    if (digit === 0) {
+                        if (!zeroFlag) {
+                            yuanChinese = digitChinese[digit] + yuanChinese;
+                            zeroFlag = true;
+                        }
+                    } else {
+                        zeroFlag = false;
+                        yuanChinese = digitChinese[digit] + unitChinese[i] + yuanChinese;
+                    }
+                }
+                // 处理连续零
+                yuanChinese = yuanChinese.replace(/零+/g, '零');
+                // 处理开头结尾的零
+                yuanChinese = yuanChinese.replace(/^零/, '').replace(/零$/, '');
+                // 加上元
+                yuanChinese += '元';
+            }
+
+            // 转换角分部分
+            let jiaoFenChinese = '';
+            if (jiao > 0) {
+                jiaoFenChinese += digitChinese[jiao] + '角';
+            }
+            if (fen > 0) {
+                jiaoFenChinese += digitChinese[fen] + '分';
+            }
+
+            // 处理整字
+            let finalChinese = '';
+            if (jiao === 0 && fen === 0) {
+                finalChinese = yuanChinese + '整';
+            } else if (yuan === 0) {
+                finalChinese = jiaoFenChinese;
+            } else {
+                finalChinese = yuanChinese + jiaoFenChinese;
+            }
+
+            // 特殊情况：0元
+            if (amount === 0) {
+                finalChinese = '零元整';
+            }
+
+            // 结果展示
+            res.style.display = 'block';
+            res.innerHTML = `
+                📌 阿拉伯数字金额：￥${amount.toFixed(2)}<br>
+                📌 中文大写金额：<strong style="font-size:1.2rem; color:var(--success);">人民币${finalChinese}</strong>
+            `;
+
+            // 同步到打印区域
+            document.getElementById('printNum').innerText = `￥${amount.toFixed(2)}`;
+            document.getElementById('printChinese').innerText = `人民币${finalChinese}`;
+        }
+
+        // 快速转换
+        function quickConvert(amount) {
+            document.getElementById('amountInput').value = amount;
+            convertAmount();
+        }
+
+        // 清空输入
+        function clearInput() {
+            document.getElementById('amountInput').value = '';
+            document.getElementById('res').style.display = 'none';
+            document.getElementById('printNum').innerText = '-';
+            document.getElementById('printChinese').innerText = '-';
+        }
+
+        // 一键复制结果
+        function copyResult() {
+            const chineseResult = document.getElementById('printChinese').innerText;
+            if (chineseResult === '-') {
+                alert('请先点击「转换为大写金额」生成结果！');
+                return;
+            }
+            navigator.clipboard.writeText(chineseResult).then(() => {
+                alert('大写金额已复制到剪贴板！');
+            }).catch(() => {
+                const textArea = document.createElement('textarea');
+                textArea.value = chineseResult;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('大写金额已复制到剪贴板！');
+            });
+        }
+
+        // 打印结果
+        function printResult() { window.print(); }
+        // 分享功能
+        function sharePage() {
+            const url = window.location.href;
+            const title = document.title;
+            if (navigator.share) {
+                navigator.share({ title, url }).catch(console.error);
+            } else {
+                navigator.clipboard.writeText(url).then(() => {
+                    alert('链接已复制到剪贴板！');
+                }).catch(() => alert('复制失败，请手动复制链接'));
+            }
+        }
+        // 回车触发转换
+        document.getElementById('amountInput').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') convertAmount();
+        });
+    </script>
+</body>
+</html>
